@@ -1,0 +1,53 @@
+/*
+Change the Button label For Product Single Page.
+ */
+function webtech878_single_add_to_cart_text($text)
+{
+    return __('Add to Basket', 'winner');
+}
+add_filter('woocommerce_product_single_add_to_cart_text', 'webtech878_single_add_to_cart_text', 10, 1);
+
+
+/*
+Change the Button label For Checkout Page.
+ */
+
+add_filter('woocommerce_order_button_text', 'woo_custom_order_button_text');
+
+function woo_custom_order_button_text()
+{
+    return __('Pay Now', 'woocommerce');
+}
+
+
+/*
+Change the Button label For Anywhere Page.
+ */
+
+add_filter('woocommerce_product_add_to_cart_text', 'custom_woocommerce_product_add_to_cart_text');
+/**
+ * custom_woocommerce_template_loop_add_to_cart
+ */
+function custom_woocommerce_product_add_to_cart_text()
+{
+    global $product;
+
+    $product_type = $product->product_type;
+
+    switch ($product_type) {
+        case 'external':
+            return __('Buy product', 'woocommerce');
+            break;
+        case 'grouped':
+            return __('View products', 'woocommerce');
+            break;
+        case 'simple':
+            return __('Add to cart', 'woocommerce');
+            break;
+        case 'variable':
+            return __('Add to Basket', 'woocommerce');
+            break;
+        default:
+            return __('Add to cart', 'woocommerce');
+    }
+}
